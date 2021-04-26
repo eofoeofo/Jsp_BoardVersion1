@@ -21,7 +21,7 @@ public class BoardListServlet extends HttpServlet {
 		
 		// list.jsp 파일을 열거야
 		
-		request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request,response); 
+		request.getRequestDispatcher("/WEB-INF/jsp/list.jsp").forward(request,response);
 	}
 
 }
