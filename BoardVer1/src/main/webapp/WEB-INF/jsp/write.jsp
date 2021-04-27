@@ -20,6 +20,5 @@
 			<input type="submit" value="글쓰기">
 		</div>
 	</form>
-
 </body>
 </html>

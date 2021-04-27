@@ -18,12 +18,13 @@
 <body>
 		<table>
 		<h1>디테일단<%=no %></h1>
-		<div>제목 :<%=vo.getTitle() %> </div>
+		<div>제목 :<%=vo.getTitle() %></div>
 		<div>
 			<form action="/del" method="post">
 				<input type="hidden" name="no" value="<%=no %>">
 				<input type="submit" value="삭제">
 			</form>
+			<a href="/mod?no=<%=no %>"><button>수정</button></a>
 			
 			<!-- <a href="/del?no=<%=no %>"><button>삭제</button></a> 
 			GET방식 삭제방법!!!-->
