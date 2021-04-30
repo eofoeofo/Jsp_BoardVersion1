@@ -71,4 +71,39 @@ public class BoardDAO {
 		}
 		return list;
 	}
+	
+	public static BoardVO3 selBoard(int iboard) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = " SELECT iboard,title,regdt "
+				   + " FROM t_board ";
+		try {
+			con = DBUtils.getCon(); // con은 항상 dbbtils의 getcon을 받아온다
+			ps = con.prepareStatement(sql); // con으로부터 prepare(메소드)를 얻어온다.
+			rs = ps.executeQuery(); // select만 executeQuery를 사용한다! 나머지는 update
+			// 쿼리의 리턴타입은 rs이다.
+			
+			while(rs.next()) { // 1. 레코드 가르키기 최초 실행될 떄 첫번째 레코드를 가르킨다
+				// next는 리턴값 불린, 레코드가 존재하면 true 존재하지 않으면 false 
+				BoardVO3 vo = new BoardVO3();
+				list.add(vo); // 위치에 상관 없다
+				
+				// 하나의 레코드들이 모여 결국 하나의 행이 담기게 되는것이에요.
+				int iboard = rs.getInt(1);  
+				String title = rs.getString(2);
+				String regdt = rs.getString(3);
+				
+				vo.setIboard(iboard);
+				vo.setTitle(title);
+				vo.setRegdt(regdt);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.close(con, ps, rs);
+		}
+		return list;
+	}
 }

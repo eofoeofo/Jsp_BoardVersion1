@@ -4,14 +4,12 @@
 <!DOCTYPE html>
 <html>
 <style>
-  table {
-    width: 100%;
-    border: 1px solid #444444;
+  table,th,td{
+    border: 1px solid black;
     border-collapse: collapse;
   }
-  th, td {
-    border: 1px solid #444444;
-  }
+  .record { cursor: pointer; }
+  .record:hover { background-color: #ecf0f1; }
 </style>
 <head>
 <meta charset="UTF-8">
@@ -30,7 +28,7 @@
 			</tr>
 			
 			<c:forEach items="${list}" var="item">
-				<tr>
+				<tr class="record" onclick="moveToDetail(${item.iboard});"> <!-- 이벤트, 클릭 시 값과 함께 넘어간다 -->
 					<td>${item.iboard}</td>
 					<td>${item.title}</td>				
 					<td>${item.regdt}</td>
@@ -38,6 +36,11 @@
 			</c:forEach>
 		</table>
 	</div>
-
+	<script>
+		function moveToDetail(iboard) {
+			console.log('iboard : %d',iboard);
+			location.href = '/detail3?iboard='+iboard;
+		}
+	</script>
 </body>
 </html>
