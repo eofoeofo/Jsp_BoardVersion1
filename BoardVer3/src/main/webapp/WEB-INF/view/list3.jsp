@@ -25,16 +25,26 @@
 				<td>NO</td>
 				<td>제목</td>
 				<td>작성일</td>
+				<td>체크</td>
 			</tr>
 			
 			<c:forEach items="${list}" var="item">
+			<!-- onclick를 사용하는 이유는 한번에 a태그로 감쌀 수 없기 때문입니다 -->
 				<tr class="record" onclick="moveToDetail(${item.iboard});"> <!-- 이벤트, 클릭 시 값과 함께 넘어간다 -->
 					<td>${item.iboard}</td>
 					<td>${item.title}</td>				
 					<td>${item.regdt}</td>
 				</tr>
+					<td>
+						<form action="/checkDel" method="get">
+							<input type="checkbox" name="iboard?iboard=${param.iboard}">
+						</form>
+					</td>
 			</c:forEach>
 		</table>
+	</div>
+	<div>
+		<a href="/checkDel">삭제</a>
 	</div>
 	<script>
 		function moveToDetail(iboard) {
