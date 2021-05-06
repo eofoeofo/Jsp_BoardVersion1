@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1>글쓰기</h1>
+	<a href="/signup"><h1>회원가입</h1></a>
 	<div>
 		<a href="/write">글 작성</a>
 	</div>

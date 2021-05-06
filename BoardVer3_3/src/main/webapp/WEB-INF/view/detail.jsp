@@ -10,7 +10,9 @@
 	<div>
 	<a href="/del?iboard=${param.iboard}">삭제</a>
 	<a href="/mod?iboard=${param.iboard}">수정</a>
+	<a href="/list">리스트</a>
 	</div>
+	<div>조회수 ${data.cnt}</div>
 	<div>제목 : ${data.title}</div>
 	<div>작성일 : ${data.regdt}</div>
 	<div>

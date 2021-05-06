@@ -78,11 +78,13 @@ public class BoardDAO {
 				String title = rs.getString("title");
 				String ctnt = rs.getString("ctnt");
 				String regdt = rs.getString("regdt");
+				int cnt = rs.getInt("cnt");
 				
 				vo.setIboard(iboard);
 				vo.setTitle(title);
 				vo.setCtnt(ctnt);
 				vo.setRegdt(regdt);
+				vo.setCnt(cnt);
 				return vo;
 			}
 		} catch (Exception e) {
