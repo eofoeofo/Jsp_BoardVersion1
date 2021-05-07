@@ -45,6 +45,7 @@ public class MemberDAO {
         	ps.setString(7, vo.getPhone());
         	ps.setString(8, vo.getAddress());
         	ps.executeUpdate();
+        	System.out.println(vo.getId());
         	con.commit();
         } catch(Exception e) {
         	e.printStackTrace();
@@ -60,7 +61,7 @@ public class MemberDAO {
         
 		boolean chk = false;
 		try {
-			String sql = " SELECT id FROM uesr_member "
+			String sql = " SELECT id FROM user_member "
 					   + " WHERE id = ? ";
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);

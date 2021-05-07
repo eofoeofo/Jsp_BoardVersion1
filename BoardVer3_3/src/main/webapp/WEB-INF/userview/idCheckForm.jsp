@@ -5,6 +5,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<style>
+		#wrp {
+			width: 490px;
+			text-align: center;
+			margin: 0 auto 0 auto;
+		}
+		#chk { text-align: center; }
+		#cancelBtn{ visibility: visible; }
+		#useBtn{ visibility: hidden; }
+	</style>
 </head>
 <body onload="pValue()">
 <div id="wrap">
@@ -19,8 +29,8 @@
 		</form>
 		<div id="msg">
 		<br>
-		<input id="cancelBtn" type="button" value="취소" onclick="window.close()"><br>
 		<input id="useBtn" type="button" value="사용하기" onclick="sendCheckValue()">
+		<input id="cancelBtn" type="button" value="취소" onclick="window.close()"><br>
 		</div>
 	</div>
 </div>
@@ -33,7 +43,7 @@
 		if(window.ActiveXObject){
 			try{
 				httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch(Exception e) {
+			} catch(e) {
 				try{
 					httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
 				} catch(e2) { httpRequest = null; }
@@ -75,7 +85,7 @@
                 // 결과값을 가져온다.
                 var resultText = httpRequest.responseText;
                 if(resultText == 0){
-                    alert("사용할수없는 아이디입니다.");
+                    alert("사용 할 수 없는 아이디 입니다.");
                     document.getElementById("cancelBtn").style.visibility='visible';
                     document.getElementById("useBtn").style.visibility='hidden';
                     document.getElementById("msg").innerHTML ="";

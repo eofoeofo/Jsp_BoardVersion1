@@ -12,9 +12,8 @@
 		<tr>
 			<td id="title">아이디</td>
 			<td>
-				<input type="text" name="id" maxlength="50" onkeydown="inputIdChk()">
-				<input type="button" value="중복확인" onclick="openIdChk()" >
-				<input type="hidden" name="idDuplication" value="idUncheck">
+				<input type="text" name="id" maxlength="50">
+				<input type="button" value="중복확인"> <!-- onclick="openIdChk()" --> 
 			</td>
 		</tr>
 		<tr>
@@ -107,19 +106,12 @@
 				alert("비밀번호를 동일하게 입력하세요.");
 				return false;
 			}
-			if(form.idDuplication.value != "idCheck"){
-				alert("아이디 중복 체크를 해 주세요.");
-				return false;
-			}
 		}
-		function openIdChk() {
+		/*function openIdChk() {
 			window.name = "parentForm";
 			window.open('/chk',
 						"chkForm", "width=500, height=300, resizable=no,scrollbars=no");
-		}
-		function inputIdChk() {
-			documnet.userInfo.idDuplication.value = "idUncheck";
-		}
+		}*/
 	</script>
 </body>
 </html>

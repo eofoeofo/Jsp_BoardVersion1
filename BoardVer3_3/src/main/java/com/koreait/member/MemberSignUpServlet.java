@@ -32,6 +32,7 @@ public class MemberSignUpServlet extends HttpServlet {
 		vo.setPhone(request.getParameter("phone"));
 		vo.setAddress(request.getParameter("address"));
 		MemberDAO.insertMember(vo);
+		System.out.println("id" + vo.getId());
 		response.sendRedirect("/list");
 	}
 }

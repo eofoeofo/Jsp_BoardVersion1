@@ -24,7 +24,7 @@ public class MemberChkServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		MemberDAO dao = MemberDAO.getInstance();
 		
-		boolean result = dao.checkId(id);
+		boolean result = MemberDAO.checkId(id);
 		
 		PrintWriter out = response.getWriter();
 		
@@ -32,5 +32,4 @@ public class MemberChkServlet extends HttpServlet {
 		else out.println("1");
 		out.close();
 	}
-
 }
