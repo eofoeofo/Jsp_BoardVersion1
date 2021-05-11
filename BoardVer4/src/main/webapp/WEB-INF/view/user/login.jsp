@@ -6,12 +6,16 @@
 <meta charset="UTF-8">
 <title>로그인</title>
 </head>
+<style>
+	.errMsg { color:red; }
+</style>
 <body>
 	<div>
+		<div class="errMsg">${errMsg}</div>
 		<div>
 			<form action="login" method="post">
-				<div><input type="text" name="uid" placeholder="아이디"></div>
-				<div><input type="password" name="upw" placeholder="비밀번호"></div>
+				<div><input type="text" name="uid" placeholder="아이디" value="aaa"></div>
+				<div><input type="password" name="upw" placeholder="비밀번호" value="123"></div>
 				<div>
 					<input type="submit" value="Login">
 				</div>

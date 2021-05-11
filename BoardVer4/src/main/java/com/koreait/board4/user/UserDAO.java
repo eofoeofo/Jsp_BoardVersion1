@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import org.apache.taglibs.standard.lang.jstl.EqualsOperator;
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.koreait.board4.DBUtils;
 
@@ -44,8 +45,16 @@ public class UserDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
+				// 한 행이라도 있는경우 true(1)
 				String dbpw = rs.getString("upw");
-				if(dbpw.equals(param.getUpw())) {
+				// iuser,unm값 담는법!
+				int iuser = rs.getInt("iuser");
+				String unm = rs.getString("unm");
+				if(BCrypt.checkpw(param.getUpw(), dbpw)) {
+					// BCrypt.checkpw(param.getUpw(), dbpw 
+					// 1번이 암호화 된것, 2번이 암호화 안된것 1번과 2번이 맞으면 true
+					param.setIuser(iuser);
+					param.setUnm(unm);
 					return 1;
 				} else {
 					return 3;

@@ -6,6 +6,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.mindrot.jbcrypt.BCrypt;
 
 import com.koreait.board4.MyUtils;
 
@@ -20,9 +23,11 @@ public class JoinServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UserVO vo = new UserVO();
 		int gender = MyUtils.getParamInt("gender", request);
-		
+		String upw = request.getParameter("upw");
+		String hashedUpw = BCrypt.hashpw(upw, BCrypt.gensalt()); // 암호화
+		System.out.println("hashedUpw : " + hashedUpw);
 		vo.setUid(request.getParameter("uid"));
-		vo.setUpw(request.getParameter("upw"));
+		vo.setUpw(hashedUpw);
 		vo.setUnm(request.getParameter("unm"));
 		vo.setGender(gender);
 		UserDAO.joinUser(vo);
