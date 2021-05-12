@@ -32,6 +32,10 @@ public class WriteServlet extends HttpServlet {
 		UserVO loginUser = (UserVO)hs.getAttribute("loginUser");
 		int iuser = loginUser.getIuser();
 		
+		int iuserPk = MyUtils.getLoginUserPk(request);
+		System.out.println("iuserPk" + iuserPk);
+		// PK값을 html에서 (얻어오는게아니라)hidden name으로 처리하게되면, 실행은 되지만, pk값이 모두에게 노출되기 때문에 조심해야한다.
+		
 		vo.setTitle(title);
 		vo.setCtnt(ctnt);
 		vo.setIuser(iuser);

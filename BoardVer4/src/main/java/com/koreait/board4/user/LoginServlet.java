@@ -20,7 +20,7 @@ public class LoginServlet extends HttpServlet {
 		UserVO loginUser = (UserVO) hs.getAttribute("loginUser");
 		if (loginUser != null) { // 로그인이 되어 있다면 로그인 페이지로 이동 불가
 			response.sendRedirect("/board/list");
-			return;
+			return; // 리턴은 필수! 왜냐면 sendRedirect와 forward가 두개 동시에 실행되면 에러나니까요
 		} 
 		
 		System.out.println("LOGIN - request : "+ request.hashCode());

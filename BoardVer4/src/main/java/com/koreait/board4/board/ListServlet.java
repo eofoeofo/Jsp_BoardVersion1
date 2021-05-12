@@ -25,7 +25,7 @@ public class ListServlet extends HttpServlet {
 //		Boolean loginSuccess = (Boolean)hs.getAttribute("loginSuccess");
 //		System.out.println("loginSuccess : " + loginSuccess);
 		// boolean과 같은 기능이고, 대문자로 시작하면 래퍼타입이라고 함
-		if (loginUser == null) {
+		if (loginUser == null) { // 로그아웃상태
 			response.sendRedirect("/user/login");
 			return;
 		} 
