@@ -11,10 +11,10 @@
 	<div>
 		<form action="login" method="post">
 			<div> 
-				<input type="text" name="uid" placeholder="아이디">
+				<input type="text" name="uid" placeholder="아이디" value="zzzz">
 			</div>
 			<div>
-				<input type="password" name="upw" placeholder="비밀번호">
+				<input type="password" name="upw" placeholder="비밀번호" value="123">
 			</div>
 			<input type="submit" value="LOGIN">
 		</form>

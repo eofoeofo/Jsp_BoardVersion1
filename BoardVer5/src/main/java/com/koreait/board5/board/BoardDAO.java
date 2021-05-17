@@ -26,11 +26,12 @@ public class BoardDAO {
 			con = DBUtils.getCon();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
+			// while문으로 계속 하나의 객체를 생성
 			while (rs.next()) {
 				BoardVO vo = new BoardVO();
 				list.add(vo);
 				vo.setIboard(rs.getInt(1));
-				vo.setTitle(rs.getString(2));
+				vo.setTitle(rs.getString("title"));
 				vo.setRegdt(rs.getString(3));
 				vo.setUnm(rs.getString(4));
 			}
@@ -122,6 +123,25 @@ public class BoardDAO {
 		} finally {
 			DBUtils.close(con, ps);
 		}
+	}
+	public static int boardMod(BoardVO param) {
+		Connection con = null;
+		PreparedStatement ps = null;
 		
+		String sql = " UPDATE t_board SET title = ? "
+				   + " , ctnt = ? WHERE iboard = ? ";
+		try {
+			con = DBUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, param.getTitle());
+			ps.setString(2, param.getCtnt());
+			ps.setInt(3, param.getIboard());
+			return ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.close(con, ps);
+		}
+		return 0;
 	}
 }
