@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>제목</title>
 <script defer src="/res/js/boardDetail.js"></script>
+<style>
+	.hidden { display: none; }
+</style>
 </head>
 <body>
 	<div><a href="list">리스트</a></div>
@@ -27,11 +30,22 @@
 	
 	<h3>댓글</h3>
 	<div>
-		<form action="cmt" method="post">
+		<form id="insFrm" action="cmt" method="post">
+			<input type="hidden" name="icmt" value="0">
 			<input type="hidden" name="iboard" value="${data.iboard}">		
 			<div>
 				<textarea name="cmt" placeholder="댓글내용"></textarea>
 				<input type="submit" value="댓글작성">
+			</div>
+		</form>
+		
+		<form id="updFrm" action="cmt" method="post" class="hidden">
+			<input type="hidden" name="icmt" value="0">
+			<input type="hidden" name="iboard" value="${data.iboard}">		
+			<div>
+				<textarea name="cmt" placeholder="댓글내용"></textarea>
+				<input type="submit" value="댓글수정">
+				<input type="button" value="수정취소" onclick="showInsFrm();">
 			</div>
 		</form>
 	</div>
@@ -50,9 +64,11 @@
 				<td>${item.regdate}</td>
 				<td>
 					<c:if test="${loginUser.iuser == item.iuser }">
-						<input type="button" value="수정">
-						<!-- <a href="cmt?icmt=${item.icmt}&iboard=${requestScope.data.iboard}"> -->
-						<button onclick="delCmt(${data.iboard},${item.icmt});">삭제</button></a>
+						<input type="button" value="수정" 
+						onclick="updCmt(${item.icmt},'${item.cmt.trim()}')">
+						<!-- cmt를 따옴표로 감싸주는이유는 문자열이라서. -->
+						<!-- 댓글의 엔터가 들어가면 에러가나는데 꼼수 trim()으로 엔터공백을 잘라버리면 해결은된다.. -->
+						<button onclick="delCmt(${data.iboard},${item.icmt});">삭제</button>
 					</c:if>
 				</td>
 			</tr>

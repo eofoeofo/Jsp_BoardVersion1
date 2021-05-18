@@ -17,6 +17,10 @@ public class BoardDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if(MyUtils.getLoginUser(request) == null) {
+			response.sendRedirect("/user/login");
+			return;
+		}
 		MyUtils.getLoginUser(request).getIuser();
 		int iboard = MyUtils.getParamInt("iboard", request);
 		CmtVO vo = new CmtVO();

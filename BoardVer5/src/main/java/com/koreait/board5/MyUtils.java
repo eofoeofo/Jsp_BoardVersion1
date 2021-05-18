@@ -16,19 +16,9 @@ public class MyUtils {
 		return (UserVO)hs.getAttribute("loginUser");
 	}
 	
-	
-	
-	
-	
 	public static int getLoginUserPk(HttpServletRequest request) {
 		return getLoginUser(request).getIuser();
 	}
-	
-	
-	
-	
-	
-	
 	
 	public static int getParamInt(String key, HttpServletRequest request) {
 			String val = request.getParameter(key);
@@ -42,7 +32,6 @@ public class MyUtils {
 			return 0;
 		}
 	}
-	
 	
 	public static void openJsp(String fileNm, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String jsp = "/WEB-INF/view/" + fileNm + ".jsp";
