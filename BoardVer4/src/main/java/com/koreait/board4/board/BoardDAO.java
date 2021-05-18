@@ -28,6 +28,48 @@ public class BoardDAO {
 			DBUtils.close(con, ps);
 		}
 	}
+	public static int updateBoard(BoardVO param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " UPDATE t_board SET title = ? "
+				   + " ,ctnt = ? WHERE iboard = ? ";
+		try {
+			con = DBUtils.getCon();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, param.getTitle());
+			ps.setString(2, param.getCtnt());
+			ps.setInt(3, param.getIboard());
+//			ps.setInt(4, param.getIuser());
+			return ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.close(con, ps);
+		}
+		return 0;
+	}
+	public static int deleteBoard(BoardVO param) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		
+		String sql = " DELETE FROM t_board WHERE iboard = ? "
+				   + " AND iuser = ? ";
+		try {
+			con = DBUtils.getCon();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, param.getIboard());
+			ps.setInt(2, param.getIuser());
+			return ps.executeUpdate();
+//			System.out.println("DAO_IUSER : "+param.getIuser());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtils.close(con, ps);
+		}
+		return 0;
+	}
 
 	public static List<BoardVO> boardList() {
 		List<BoardVO> list = new ArrayList();
@@ -101,47 +143,5 @@ public class BoardDAO {
 			DBUtils.close(con, ps, rs);
 		}
 		return null;
-	}
-	public static int deleteBoard(BoardVO param) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		
-		String sql = " DELETE FROM t_board WHERE iboard = ? "
-				   + " AND iuser = ? ";
-		try {
-			con = DBUtils.getCon();
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, param.getIboard());
-			ps.setInt(2, param.getIuser());
-			return ps.executeUpdate();
-//			System.out.println("DAO_IUSER : "+param.getIuser());
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBUtils.close(con, ps);
-		}
-		return 0;
-	}
-	public static int updateBoard(BoardVO param) {
-		Connection con = null;
-		PreparedStatement ps = null;
-		
-		String sql = " UPDATE t_board SET title = ? "
-				   + " ,ctnt = ? WHERE iboard = ? ";
-		try {
-			con = DBUtils.getCon();
-			ps = con.prepareStatement(sql);
-			
-			ps.setString(1, param.getTitle());
-			ps.setString(2, param.getCtnt());
-			ps.setInt(3, param.getIboard());
-//			ps.setInt(4, param.getIuser());
-			return ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DBUtils.close(con, ps);
-		}
-		return 0;
 	}
 }

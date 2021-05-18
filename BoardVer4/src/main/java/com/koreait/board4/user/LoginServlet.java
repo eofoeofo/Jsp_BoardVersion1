@@ -25,7 +25,7 @@ public class LoginServlet extends HttpServlet {
 		
 		System.out.println("LOGIN - request : "+ request.hashCode());
 		System.out.println("LOGIN - hs : " + hs.hashCode());
-		MyUtils.openJsp("user/userLogin", request, response);
+		MyUtils.openJsp("user/login", request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
