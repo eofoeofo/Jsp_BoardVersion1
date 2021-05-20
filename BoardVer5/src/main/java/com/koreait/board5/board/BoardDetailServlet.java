@@ -23,11 +23,14 @@ public class BoardDetailServlet extends HttpServlet {
 		}
 		MyUtils.getLoginUser(request).getIuser();
 		int iboard = MyUtils.getParamInt("iboard", request);
-		CmtVO vo = new CmtVO();
-		request.setAttribute("data", BoardDAO.selBoard(MyUtils.getParamInt("iboard", request)));
+		BoardVO vo2 = new BoardVO();
+		vo2.setIboard(iboard);
+		vo2.setIuser(MyUtils.getLoginUserPk(request));
+		// 로그인 user의 PK값
+		vo2 = BoardDAO.selBoard(vo2);
+		request.setAttribute("data", vo2);
 		request.setAttribute("list", CmtDAO.selListCmt(iboard));
-		System.out.println("iboard : " + vo.getIboard());
-		System.out.println("cmt :: " + vo.getCmt());
+		
 		
 //		System.out.println("iboard : " + CmtDAO.selListCmt(MyUtils.getParamInt("iboard", request)));
 		MyUtils.openJsp("board/boardDetail", request, response);

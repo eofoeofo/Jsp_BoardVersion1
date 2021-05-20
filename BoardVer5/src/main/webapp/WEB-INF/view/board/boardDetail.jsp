@@ -7,8 +7,11 @@
 <meta charset="UTF-8">
 <title>제목</title>
 <script defer src="/res/js/boardDetail.js"></script>
+<link rel="stylesheet" 
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style>
 	.hidden { display: none; }
+	.fa-heart { color: red; }
 </style>
 </head>
 <body>
@@ -19,7 +22,15 @@
 		<a href="mod?iboard=${param.iboard}">수정</a>
 	</div>
 	</c:if>
-	<div>디테일 페이지</div>
+	<h1>
+		디테일 페이지
+		<c:if test="${data.isFav eq 0}">
+			<a href="fav?iboard=${param.iboard}&fav=1"><i class="far fa-heart"></i></a>
+		</c:if>
+		<c:if test="${data.isFav eq 1}">
+			<a href="fav?iboard=${param.iboard}&fav=0"><i class="fas fa-heart"></i></a>
+		</c:if>
+	</h1>
 	<div>유저 pk : ${data.iuser} 작성자 : ${data.unm}</div>
 	<div>
 		제목 : ${data.title}

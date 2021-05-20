@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import com.koreait.board4.MyUtils;
 import com.koreait.board4.cmt.CmtDAO;
-import com.koreait.board4.user.UserVO;
 
 @WebServlet("/board/detail")
 public class DetailServlet extends HttpServlet {
@@ -19,13 +18,9 @@ public class DetailServlet extends HttpServlet {
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		MyUtils.getLoginUser(request).getIuser();
-		String iboard = request.getParameter("iboard");
-		int intIboard = Integer.parseInt(iboard);
 		
-		BoardVO data = BoardDAO.selBoard(intIboard);
-		System.out.println("intIboard : " + intIboard);
-		request.setAttribute("data", data);
-		request.setAttribute("list", CmtDAO.selCmt(intIboard));
+		request.setAttribute("data", BoardDAO.selBoard(MyUtils.getParamInt(request.getParameter("iboard"), request)));
+		request.setAttribute("list", CmtDAO.selCmt(MyUtils.getParamInt(request.getParameter("iboard"), request)));
 		MyUtils.openJsp("board/detail", request, response);
 	}
 }

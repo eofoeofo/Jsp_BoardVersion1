@@ -1,3 +1,4 @@
+var insFrmElem = document.querySelector("#insFrm");
 var updFrmElem = document.querySelector("#updFrm");
 
 function delCmt(iboard,icmt) {
