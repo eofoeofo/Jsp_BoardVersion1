@@ -16,7 +16,8 @@ public class ModServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String iboard = request.getParameter("iboard");
 		int intIboard = Integer.parseInt(iboard);
-		BoardVO data = BoardDAO.selBoard(intIboard);
+		int iuser = MyUtils.getLoginUserPk(request);
+		BoardVO data = BoardDAO.selBoard(intIboard,iuser);
 		request.setAttribute("data", data);
 		MyUtils.openJsp("board/mod", request, response);
 	}

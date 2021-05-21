@@ -19,7 +19,8 @@ public class DeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String iboard = request.getParameter("iboard");
 		int intIboard = Integer.parseInt(iboard);
-		BoardVO vo = BoardDAO.selBoard(intIboard);
+		int iuser = MyUtils.getLoginUserPk(request);
+		BoardVO vo = BoardDAO.selBoard(intIboard,iuser);
 		vo.setIboard(intIboard);
 //		int iuser = vo.getIuser();
 //		
