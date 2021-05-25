@@ -1,6 +1,6 @@
-package com.koreait.board7.board;
+package com.koreait.board7.cmt;
 
-public class BoardDomain extends BoardEntity {
+public class BoardCmtDomain extends BoardCmtEntity {
 	private String writerNm;
 
 	public String getWriterNm() {
