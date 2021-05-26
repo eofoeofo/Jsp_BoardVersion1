@@ -20,18 +20,18 @@ function regAjax(param) {
 	fetch('cmtInsSel',init)
 	// res는 브라우저에서 JSON형태로 문자열을 받는다, 받고 myJson에 보낸다.
 	.then(function(res) {
+		console.log('res  : ' +res);
 		return res.json();
 	})
 	.then(function(myJson){
-		console.log(myJson);
-		
+		console.log('myJson : ' + myJson);
 		switch(myJson.result){
 			case 0:
 				alert('등록 실패!');
 			break;
 			case 1:
 				cmtFrmElem.cmt.value = '';
-				alert('등록 완료!');
+				getListAjax();
 			break;
 		}
 	});
@@ -45,6 +45,92 @@ function getListAjax() {
 	})
 	.then(function(myJson){
 		console.log(myJson);
+		
+		makeCmtElemList(myJson); // myJson데이터를 보냄
+	});
+}
+
+function makeCmtElemList(data) { // JSON형태의 배열이 data 
+	// html tag를 js단에서 처리하는 방식
+	// 서버에서 데이터가 넘어온 이후의 상황일 때,
+	// 동적으로 리스트에 뿌리기 위해서는 js로 tag를 처리해야한다.
+	var cmtListElem = document.querySelector('#cmtList');
+	cmtListElem.innerHTML = ''; // 댓글 트리거 작동 후, 가지고 있던 값을 지워버리는 역할
+	var tableElem = document.createElement('table'); // 메모리에 html table<tag>를 만듬
+	var trElemTable = document.createElement('tr');
+	var thElemCtnt = document.createElement('th');
+	var thElemWriter = document.createElement('th');
+	var thElemRegdate = document.createElement('th');
+	var thElemRemarks = document.createElement('th'); // 비고
+	
+	thElemCtnt.innerText = '내용';
+	thElemWriter.innerText = '작성자';
+	thElemRegdate.innerText = '작성일';
+	thElemRemarks.innerText = '비고';
+	
+	trElemTable.append(thElemCtnt);
+	trElemTable.append(thElemWriter);
+	trElemTable.append(thElemRegdate);
+	trElemTable.append(thElemRemarks);
+	
+	tableElem.append(trElemTable);
+	// 아직까지 메모리에만 존재하는 js <tag>.
+	
+	cmtListElem.append(tableElem);
+	
+	var loginUserPk = cmtFrmElem.dataset.login_user_pk;
+	
+	data.forEach(function(item) { // 배열의 객체를 인자값으로 받음.
+		var trElemItem = document.createElement('tr');
+		var tdElemCmt = document.createElement('td');
+		var tdElemUnm = document.createElement('td');
+		var tdElemRegdate = document.createElement('td');
+		var tdElemBtn = document.createElement('td'); 
+		
+		tdElemCmt.append(item.cmt);
+		tdElemUnm.append(item.writerNm);
+		tdElemRegdate.append(item.regdate);
+		
+		if(parseInt(loginUserPk) === item.iuser) {
+			var delBtn = document.createElement('button');
+			var updBtn = document.createElement('button');
+			
+			delBtn.addEventListener('click', function() {
+				delAjax(item.icmt);
+			});
+			
+			delBtn.innerText = '삭제'; // value ㄴㄴ
+			updBtn.innerText = '수정';
+			
+			tdElemBtn.append(delBtn);
+			tdElemBtn.append(updBtn);
+		}
+		
+		trElemItem.append(tdElemCmt);
+		trElemItem.append(tdElemUnm);
+		trElemItem.append(tdElemRegdate);
+		trElemItem.append(tdElemBtn);
+		
+		tableElem.append(trElemItem);
+	});
+	
+}
+
+function delAjax(icmt) {
+	fetch('cmtDelUpd?icmt=' + icmt)
+	.then(function(res){
+		return res.json();
+	})
+	.then(function(myJson){ // 객체로 넘어오는 구간 // "{result : 0or1}"
+		console.log(myJson)
+		switch(myJson.result){
+			case 0:
+				alert('댓글 삭제에 실패하셨습니다.')
+			break;
+			case 1:
+				getListAjax(); // 삭제가 되었다면, 리스트를 다시 뿌리는 함수
+			break;
+		}
 	});
 }
 

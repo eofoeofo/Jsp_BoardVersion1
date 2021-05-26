@@ -15,7 +15,7 @@
 	<c:out value="${data.ctnt}"/>
 </div>
 <div>
-	<form id="cmtFrm" data-iboard="${param.iboard}" onsubmit="return false;">
+	<form id="cmtFrm" data-login_user_pk="${sessionScope.loginUser.iuser}"data-iboard="${param.iboard}" onsubmit="return false;">
 		<input type="text" id="cmt">
 		<input type="button" value="댓글달기" onclick="regCmt();">
 	</form>
