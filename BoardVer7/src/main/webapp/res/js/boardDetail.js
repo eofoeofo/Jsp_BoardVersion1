@@ -1,4 +1,6 @@
 var cmtFrmElem = document.querySelector('#cmtFrm');
+var cmtListElem = document.querySelector('#cmtList');
+var cmtUpdModalElem = document.querySelector('#modal');
 
 function regCmt() {
 	var cmtVal = cmtFrmElem.cmt.value;		
@@ -6,17 +8,18 @@ function regCmt() {
 	console.log(cmtVal);
 	
 	var param = {
-		iboard: cmtFrmElem.dataset.iboard,
-		cmt: cmtVal
+				iboard: cmtListElem.dataset.iboard,
+				cmt: cmtVal
 	};
-	regAjax(param);
+				regAjax(param);
 }
 // 서버가 등록해야할 자료를 전달하는 함수
 function regAjax(param) {
 	const init = {
-		method: 'POST',
-		body: new URLSearchParams(param)
-	};
+				method: 'POST',
+				body: new URLSearchParams(param)
+				};
+				
 	fetch('cmtInsSel',init)
 	// res는 브라우저에서 JSON형태로 문자열을 받는다, 받고 myJson에 보낸다.
 	.then(function(res) {
@@ -38,7 +41,7 @@ function regAjax(param) {
 }
 // 서버에게 댓글 리스트 자료를 요청하는 함수
 function getListAjax() {
-	var iboard = cmtFrmElem.dataset.iboard;
+	var iboard = cmtListElem.dataset.iboard;
 	fetch('cmtInsSel?iboard='+iboard)
 	.then(function(res){
 		return res.json();
@@ -54,7 +57,6 @@ function makeCmtElemList(data) { // JSON형태의 배열이 data
 	// html tag를 js단에서 처리하는 방식
 	// 서버에서 데이터가 넘어온 이후의 상황일 때,
 	// 동적으로 리스트에 뿌리기 위해서는 js로 tag를 처리해야한다.
-	var cmtListElem = document.querySelector('#cmtList');
 	cmtListElem.innerHTML = ''; // 댓글 트리거 작동 후, 가지고 있던 값을 지워버리는 역할
 	var tableElem = document.createElement('table'); // 메모리에 html table<tag>를 만듬
 	var trElemTable = document.createElement('tr');
@@ -78,7 +80,7 @@ function makeCmtElemList(data) { // JSON형태의 배열이 data
 	
 	cmtListElem.append(tableElem);
 	
-	var loginUserPk = cmtFrmElem.dataset.login_user_pk;
+	var loginUserPk = cmtListElem.dataset.login_user_pk;
 	
 	data.forEach(function(item) { // 배열의 객체를 인자값으로 받음.
 		var trElemItem = document.createElement('tr');
@@ -96,7 +98,14 @@ function makeCmtElemList(data) { // JSON형태의 배열이 data
 			var updBtn = document.createElement('button');
 			
 			delBtn.addEventListener('click', function() {
-				delAjax(item.icmt);
+				if(confirm('삭제하시겠습니까?')){
+					delAjax(item.icmt);
+				}
+			});
+			
+			// 댓글 수정버튼 모달창
+			updBtn.addEventListener('click', function() {
+				openUpdModal(item); // item의 주소값(객체)을 보냄
 			});
 			
 			delBtn.innerText = '삭제'; // value ㄴㄴ
@@ -132,6 +141,47 @@ function delAjax(icmt) {
 			break;
 		}
 	});
+}
+function updAjax() {
+	var cmtUpdFrmElem = document.querySelector('#cmtUpdFrm');
+	var param = {
+				icmt : cmtUpdFrmElem.icmt.value,
+				cmt  : cmtUpdFrmElem.cmt.value
+	}
+	const init = {
+				method: 'POST',
+				body: new URLSearchParams(param)
+				};
+				
+	fetch('cmtDelUpd',init)
+	.then(function(res) {
+		console.log('res  : ' +res);
+		return res.json();
+	})
+	.then(function(myJson){
+		console.log('myJson  : ' +myJson);
+		closeUpdModal();
+		switch(myJson){
+			case 0:
+				alert('수정 실패!');
+			break;
+			case 1:
+				getListAjax();
+			break;
+		}
+	});
+}
+
+function openUpdModal({icmt, cmt}) {
+	cmtUpdModalElem.className = '';
+	var cmtUpdFrmElem = document.querySelector('#cmtUpdFrm')
+	
+	cmtUpdFrmElem.icmt.value = icmt;
+	cmtUpdFrmElem.cmt.value = cmt;
+}
+
+function closeUpdModal() {
+	cmtUpdModalElem.className = 'displayNone';
 }
 
 getListAjax();// 이 파일이 임포트 되면 함수 1회 호출

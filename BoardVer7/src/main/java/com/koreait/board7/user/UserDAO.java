@@ -35,7 +35,9 @@ public class UserDAO {
 		ResultSet rs = null;
 
 		UserEntity result = null;
-		String sql = " SELECT iuser,uid,upw,unm FROM t_user WHERE uid = ? ";
+		String sql = " SELECT iuser,uid,upw,unm,profileimg "
+			       + " FROM t_user "
+			       + " WHERE uid = ? ";
 
 		try {
 			con = DBUtils.getCon();
@@ -46,12 +48,14 @@ public class UserDAO {
 				int iuser = rs.getInt("iuser");
 				String uid = rs.getString("uid");
 				String upw = rs.getString("upw");
-				String unm = rs.getString("upw");
+				String unm = rs.getString("unm");
+				String profileImg = rs.getString("profileimg");
 				result = new UserEntity();
 				result.setIuser(iuser);
 				result.setUid(uid);
 				result.setUpw(upw);
 				result.setUnm(unm);
+				result.setProfileImg(profileImg);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
