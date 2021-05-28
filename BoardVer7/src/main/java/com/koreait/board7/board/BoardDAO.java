@@ -65,7 +65,7 @@ public class BoardDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		String sql = " SELECT A.iboard, A.title, A.regdt, B.unm AS writerNm " 
+		String sql = " SELECT A.iuser, A.iboard, A.title, A.regdt, B.unm AS writerNm, B.profileimg" 
 				   + " FROM t_board A " 
 				   + " INNER JOIN t_user B "
 				   + " ON A.iuser = B.iuser ";
@@ -100,10 +100,12 @@ public class BoardDAO {
 			while (rs.next()) {
 				BoardDomain vo = new BoardDomain();
 				list.add(vo);
-				vo.setIboard(rs.getInt(1));
+				vo.setIboard(rs.getInt("iboard"));
 				vo.setTitle(rs.getString("title"));
-				vo.setRegdt(rs.getString(3));
-				vo.setWriterNm(rs.getString(4));
+				vo.setRegdt(rs.getString("regdt"));
+				vo.setWriterNm(rs.getString("writerNm"));
+				vo.setProfileImg(rs.getString("profileimg"));
+				vo.setIuser(rs.getInt("iuser"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

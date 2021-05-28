@@ -15,14 +15,16 @@
 <div>
 	<c:out value="${data.ctnt}"/>
 </div>
+
 <c:if test="${not empty sessionScope.loginUser}">
 	<div>
 		<form id="cmtFrm" onsubmit="return false;">
-			<input type="text" id="cmt">
+			<input type="text" id="cmt" onkeyup="enterKey();">
 			<input type="button" value="댓글달기" onclick="regCmt();">
 		</form>
 	</div>
 </c:if>
+
 <div id="cmtList" data-login_user_pk="${sessionScope.loginUser.iuser}" data-iboard="${param.iboard}"></div>
 
 <div id="modal" class="displayNone">

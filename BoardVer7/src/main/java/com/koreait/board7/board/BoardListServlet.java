@@ -24,7 +24,6 @@ public class BoardListServlet extends HttpServlet {
 		param.setStartIdx(startIdx);
 		param.setRecordCnt(recordCnt);
 		
-		
 		int searchType = MyUtils.getParamInt("searchType", request);
 		String searchText = request.getParameter("searchText");
 		// select박스 선택이 되었고, 값이 null이 아니고, 공백이 아닌 무언가가 입력이 되었을 때
